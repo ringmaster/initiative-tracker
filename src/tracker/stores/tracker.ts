@@ -97,7 +97,7 @@ function createTracker() {
         return data.descending;
     });
     let _settings: InitiativeTrackerData | null;
-    
+
     const condensed = derived(creatures, (values) => {
         if (_settings?.condense) {
             values.forEach((creature, _, arr) => {
@@ -124,20 +124,22 @@ function createTracker() {
                3. According to the resolveTies setting */
             if (a.initiative != b.initiative) {
                 return data.descending
-                ? b.initiative - a.initiative
-                : a.initiative - b.initiative;
+                    ? b.initiative - a.initiative
+                    : a.initiative - b.initiative;
             }
-            
+
             if (
-                a.manualOrder !== null && a.manualOrder !== undefined && 
-                b.manualOrder !== null && b.manualOrder !== undefined && 
+                a.manualOrder !== null &&
+                a.manualOrder !== undefined &&
+                b.manualOrder !== null &&
+                b.manualOrder !== undefined &&
                 a.manualOrder !== b.manualOrder
             ) {
                 const aOrder = a.manualOrder || 0;
                 const bOrder = b.manualOrder || 0;
                 return aOrder - bOrder;
             }
-            
+
             switch (_settings.resolveTies) {
                 case RESOLVE_TIES.random:
                     return Math.random() < 0.5 ? 1 : -1;
@@ -146,12 +148,11 @@ function createTracker() {
                     const aPlayer = a.player ? 1 : 0;
                     const bPlayer = b.player ? 1 : 0;
                     if (_settings.resolveTies == RESOLVE_TIES.playerFirst) {
-                        return bPlayer - aPlayer
+                        return bPlayer - aPlayer;
                     } else {
-                        return aPlayer - bPlayer
+                        return aPlayer - bPlayer;
                     }
             }
-            
         });
         current_order = sort;
         return sort;
@@ -508,7 +509,7 @@ function createTracker() {
                         (entry.saved ? 0.5 : 1) *
                         (entry.resist ? 0.5 : 1) *
                         Number(entry.customMod);
-                    const name = [creature.name];
+                    const name = [creature.display || creature.name];
                     if (creature.number > 0) {
                         name.push(`${creature.number}`);
                     }
@@ -519,7 +520,7 @@ function createTracker() {
                         max: false,
                         status: null,
                         remove_status: null,
-                        saved: false,
+                        saved: entry.saved,
                         unc: false,
                         ac: null,
                         ac_add: false
@@ -1279,10 +1280,11 @@ class Tracker {
                     (entry.saved ? 0.5 : 1) *
                     (entry.resist ? 0.5 : 1) *
                     Number(entry.customMod);
-                const name = [creature.name];
+                const name = [creature.display || creature.name];
                 if (creature.number > 0) {
                     name.push(`${creature.number}`);
                 }
+                console.log(creature, entry);
                 const message: UpdateLogMessage = {
                     name: name.join(" "),
                     hp: null,
@@ -1290,7 +1292,7 @@ class Tracker {
                     max: false,
                     status: null,
                     remove_status: null,
-                    saved: false,
+                    saved: entry.saved,
                     unc: false,
                     ac: null,
                     ac_add: false

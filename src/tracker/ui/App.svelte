@@ -11,6 +11,7 @@
     import { ExtraButtonComponent, Notice } from "obsidian";
     import { ADD, COPY } from "src/utils";
     import Updating from "./Updating.svelte";
+    import UpdatingModal from "./UpdatingModal.svelte";
     import Logger from "src/logger/logger";
 
     import { AddCreatureModal } from "./create/modal";
@@ -87,7 +88,10 @@
         on:edit={(evt) => editOrAdd(evt.detail)}
         on:open-combatant={(evt) => plugin.openCombatant(evt.detail)}
     />
-    <Updating />
+    {#if !smallScreenMode}
+        <Updating />
+    {/if}
+    <UpdatingModal />
     {#if saving}
         <SaveEncounter on:cancel={() => (saving = false)} />
     {:else if loading}

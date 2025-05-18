@@ -70,7 +70,8 @@
         node.onkeydown = (evt) => {
             if (evt.key === "Enter") {
                 status ? addStatus() : performUpdate(true);
-        }};
+            }
+        };
         createModal();
     };
     const createModal = () => {
@@ -93,6 +94,7 @@
         if ($updateTarget == target) el.focus();
     }
     const performUpdate = (perform: boolean) => {
+        console.log("Perform", perform);
         if (perform) {
             tracker.doUpdate(damage ?? "", $statuses, ac);
         } else {
@@ -385,5 +387,18 @@
     }
     td > input {
         margin: 0;
+    }
+
+    /* Modal-specific styles */
+    :global(.updating-modal .hp-status) {
+        margin-bottom: 8px;
+    }
+
+    :global(.updating-modal .input input) {
+        width: 100%;
+    }
+
+    :global(.updating-modal .updating-buttons) {
+        margin-top: 12px;
     }
 </style>
