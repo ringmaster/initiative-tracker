@@ -23,6 +23,7 @@
     const { data } = tracker;
 
     $: difficulty = $data.displayDifficulty;
+    $: smallScreenMode = $data?.smallScreenMode;
 
     tracker.setData(plugin.data);
     tracker.setLogger(new Logger(plugin));
@@ -69,7 +70,10 @@
     };
 </script>
 
-<div class="obsidian-initiative-tracker">
+<div
+    class="obsidian-initiative-tracker"
+    class:small-screen-mode={smallScreenMode}
+>
     <Controls
         on:save={() => (saving = true)}
         on:load={() => (loading = true)}
@@ -133,5 +137,13 @@
     }
     .add-button :global(.clickable-icon) {
         margin: 0;
+    }
+
+    /* Small Screen Mode Styles */
+    :global(.view-content:has(.obsidian-initiative-tracker.small-screen-mode)) {
+        display: flex;
+    }
+    .small-screen-mode :global(.draggable) {
+        cursor: default;
     }
 </style>

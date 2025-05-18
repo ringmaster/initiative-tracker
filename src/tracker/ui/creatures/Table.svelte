@@ -14,11 +14,13 @@
     import { getContext } from "svelte";
 
     const plugin = getContext<InitiativeTracker>("plugin");
-    const { state, ordered } = tracker;
+    const { state, ordered, data } = tracker;
 
     $: items = [...$ordered].map((c) => {
         return { creature: c, id: getId() };
     });
+
+    $: smallScreenMode = $data?.smallScreenMode;
 
     const dispatch = createEventDispatcher();
 
@@ -54,10 +56,12 @@
             tracker.logNewInitiative(dropped.creature);
         }
         items = e.detail.items;
-        $tracker = [...items.map(({ creature }, i) => {
-            creature.manualOrder = i;
-            return creature;
-        })];
+        $tracker = [
+            ...items.map(({ creature }, i) => {
+                creature.manualOrder = i;
+                return creature;
+            })
+        ];
     }
 
     const diceIcon = (node: HTMLElement) => {
@@ -84,7 +88,8 @@
                 items,
                 flipDurationMs,
                 dropTargetStyle: {},
-                morphDisabled: true
+                morphDisabled: true,
+                dragDisabled: smallScreenMode
             }}
             on:consider={handleDndConsider}
             on:finalize={handleDndFinalize}
@@ -139,6 +144,12 @@
         table-layout: fixed;
         border-collapse: separate;
         border-spacing: 0 2px;
+    }
+
+    :global(.initiative-tracker-settings.small-screen-mode)
+        .initiative-tracker-table {
+        width: 100%;
+        overflow-x: auto;
     }
 
     .left {

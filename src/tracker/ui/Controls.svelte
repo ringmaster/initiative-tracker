@@ -363,4 +363,14 @@
     .clean > *:not(:last-child) {
         margin-right: 0.25rem;
     }
+
+    :global(.small-screen-mode) .buttons {
+        width: 100%;
+        box-sizing: border-box;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: var(--background-primary);
+        padding: 0.5rem;
+    }
 </style>

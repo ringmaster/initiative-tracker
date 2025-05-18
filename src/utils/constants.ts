@@ -39,6 +39,7 @@ export const DEFAULT_SETTINGS: InitiativeTrackerData = {
     version: [],
     canUseDiceRoll: false,
     preferStatblockLink: false,
+    smallScreenMode: false,
     initiative: "1d20 + %mod%",
     modifier: null,
     sync: false,
