@@ -8,7 +8,6 @@ export interface InitiativeTrackerData {
     beginnerTips: boolean;
     displayDifficulty: boolean;
     preferStatblockLink: boolean;
-    smallScreenMode: boolean;
     statuses: Condition[];
     unconsciousId: string;
     openState: {

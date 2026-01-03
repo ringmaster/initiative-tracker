@@ -8,6 +8,9 @@ export const CREATURE_TRACKER_VIEW = "initiative-tracker-creature-view";
 
 export const MIN_WIDTH_FOR_HAMBURGER = 300;
 
+declare const FORCE_SMALL_SCREEN: boolean;
+export const SMALL_SCREEN_MODE = FORCE_SMALL_SCREEN || Platform.isMobile;
+
 export const DEFAULT_UNDEFINED = "–";
 
 export const META_MODIFIER = Platform.isMacOS ? "Meta" : "Control";
@@ -27,7 +30,7 @@ export const OVERFLOW_TYPE: { [key: string]: string } = {
 export const RESOLVE_TIES: { [key: string]: string } = {
     playerFirst: "playerFirst",
     npcFirst: "npcFirst",
-    random: "random",
+    random: "random"
 };
 
 export const DEFAULT_SETTINGS: InitiativeTrackerData = {
@@ -39,7 +42,6 @@ export const DEFAULT_SETTINGS: InitiativeTrackerData = {
     version: [],
     canUseDiceRoll: false,
     preferStatblockLink: false,
-    smallScreenMode: false,
     initiative: "1d20 + %mod%",
     modifier: null,
     sync: false,

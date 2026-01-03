@@ -3,7 +3,7 @@
 
     import CreatureTemplate from "./Creature.svelte";
 
-    import { AC, DICE, HP, META_MODIFIER } from "src/utils";
+    import { AC, DICE, HP, META_MODIFIER, SMALL_SCREEN_MODE } from "src/utils";
     import { Creature, getId } from "src/utils/creature";
     import { createEventDispatcher } from "svelte";
     import { dndzone } from "svelte-dnd-action";
@@ -14,13 +14,13 @@
     import { getContext } from "svelte";
 
     const plugin = getContext<InitiativeTracker>("plugin");
-    const { state, ordered, data } = tracker;
+    const { state, ordered } = tracker;
 
     $: items = [...$ordered].map((c) => {
         return { creature: c, id: getId() };
     });
 
-    $: smallScreenMode = $data?.smallScreenMode;
+    const smallScreenMode = SMALL_SCREEN_MODE;
 
     const dispatch = createEventDispatcher();
 

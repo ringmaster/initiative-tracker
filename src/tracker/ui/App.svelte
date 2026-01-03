@@ -9,7 +9,7 @@
 
     import { tracker } from "../stores/tracker";
     import { ExtraButtonComponent, Notice } from "obsidian";
-    import { ADD, COPY } from "src/utils";
+    import { ADD, COPY, SMALL_SCREEN_MODE } from "src/utils";
     import Updating from "./Updating.svelte";
     import UpdatingModal from "./UpdatingModal.svelte";
     import Logger from "src/logger/logger";
@@ -24,7 +24,7 @@
     const { data } = tracker;
 
     $: difficulty = $data.displayDifficulty;
-    $: smallScreenMode = $data?.smallScreenMode;
+    const smallScreenMode = SMALL_SCREEN_MODE;
 
     tracker.setData(plugin.data);
     tracker.setLogger(new Logger(plugin));

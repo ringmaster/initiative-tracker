@@ -1,13 +1,14 @@
 <script lang="ts">
     import { getContext, onMount } from "svelte";
     import { tracker } from "../stores/tracker";
+    import { SMALL_SCREEN_MODE } from "src/utils";
     import Updating from "./Updating.svelte";
     import type InitiativeTracker from "src/main";
 
     const plugin = getContext<InitiativeTracker>("plugin");
-    const { updating, updateTarget, data } = tracker;
+    const { updating, updateTarget } = tracker;
 
-    $: smallScreenMode = $data?.smallScreenMode;
+    const smallScreenMode = SMALL_SCREEN_MODE;
     $: isOpen = $updating.size > 0 && $updateTarget != null && smallScreenMode;
     
     let dialogElement: HTMLDialogElement;

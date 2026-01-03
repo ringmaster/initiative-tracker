@@ -5,7 +5,8 @@
     "types": "./dist/index.d.ts",
     "scripts": {
         "build": "node esbuild.config.mjs production && tsc --project tsconfig.json --emitDeclarationOnly --declaration --declarationMap --outdir ./dist",
-        "dev": "node esbuild.config.mjs"
+        "dev": "node esbuild.config.mjs",
+        "dist": "node -e \"require('dotenv').config(); const {execSync} = require('child_process'); execSync('node esbuild.config.mjs production', {stdio:'inherit'}); const fs = require('fs'); const dest = process.env.OUTDIR; ['main.js','styles.css','manifest.json'].forEach(f => fs.copyFileSync(f, dest + f)); console.log('Copied to ' + dest);\""
     },
     "keywords": [],
     "author": "",

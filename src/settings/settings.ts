@@ -186,19 +186,6 @@ export default class InitiativeTrackerSettings extends PluginSettingTab {
                 );
             });
         
-        new Setting(containerEl)
-            .setName("Enable small screen mode")
-            .setDesc(
-                "Optimizes the UI for small screens by disabling drag and drop reordering and using fixed positioning for controls."
-            )
-            .addToggle((t) => {
-                t.setValue(this.plugin.data.smallScreenMode).onChange(
-                    async (v) => {
-                        this.plugin.data.smallScreenMode = v;
-                        await this.plugin.saveSettings();
-                    }
-                );
-            });
     }
     private async _displayBattle(additionalContainer: HTMLDetailsElement) {
         additionalContainer.empty();

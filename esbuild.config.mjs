@@ -17,6 +17,8 @@ const prod = process.argv[2] === "production";
 
 const dir = prod ? "./" : process.env.OUTDIR;
 
+const forceSmallScreen = process.env.FORCE_SMALL_SCREEN === "true";
+
 const parameters = {
     banner: {
         js: banner
@@ -24,6 +26,9 @@ const parameters = {
     entryPoints: ["src/main.ts", "src/styles.css"],
     bundle: true,
     external: ["obsidian", "electron", ...builtins],
+    define: {
+        "FORCE_SMALL_SCREEN": JSON.stringify(forceSmallScreen)
+    },
     format: "cjs",
     logLevel: "info",
     target: "es2020",
